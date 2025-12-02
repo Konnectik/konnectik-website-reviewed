@@ -4,6 +4,7 @@ import { X, FileText, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import emailjs from "@emailjs/browser";
 
 interface PitchDeckFormProps {
   isOpen: boolean;
@@ -12,10 +13,37 @@ interface PitchDeckFormProps {
 
 export const PitchDeckForm = ({ isOpen, onClose }: PitchDeckFormProps) => {
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleClose = () => {
     setSubmitted(false);
     onClose();
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    const form = e.currentTarget;
+
+    emailjs
+      .sendForm(
+        "service_b5h9308", // replace with your EmailJS service ID
+        "template_34yofob", // replace with your EmailJS template ID
+        form,
+        "m-uVBTyj2Yp3MwJZ3" // replace with your EmailJS public key
+      )
+      .then(
+        (result) => {
+          console.log("Email sent successfully:", result.text);
+          setSubmitted(true);
+        },
+        (error) => {
+          console.error("Email sending error:", error.text);
+          alert("Something went wrong. Please try again later.");
+        }
+      )
+      .finally(() => setIsSubmitting(false));
   };
 
   return (
@@ -59,17 +87,9 @@ export const PitchDeckForm = ({ isOpen, onClose }: PitchDeckFormProps) => {
 
             {!submitted ? (
               <form
-                name="pitch-deck-access"
-                method="POST"
-                data-netlify="true"
-                netlify-honeypot="bot-field"
-                onSubmit={() => setSubmitted(true)}
+                onSubmit={handleSubmit}
                 className="space-y-4"
               >
-                {/* Hidden fields required by Netlify */}
-                <input type="hidden" name="form-name" value="pitch-deck-access" />
-                <input type="hidden" name="bot-field" />
-
                 <div className="space-y-2">
                   <Label htmlFor="name">Full Name</Label>
                   <Input
@@ -106,8 +126,8 @@ export const PitchDeckForm = ({ isOpen, onClose }: PitchDeckFormProps) => {
                   />
                 </div>
 
-                <Button type="submit" className="w-full" size="lg">
-                  Get Access
+                <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
+                  {isSubmitting ? "Submitting..." : "Get Access"}
                 </Button>
               </form>
             ) : (
