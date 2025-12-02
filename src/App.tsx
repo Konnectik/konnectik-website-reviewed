@@ -5,6 +5,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import {LearnMore} from "./components/LearnMore";
+import {ExpansionJourney} from "./components/ExpansionJourney";
+import {HowItWorks} from "./components/HowItWorks"
+import {CTA} from "./components/CTA";
 
 const queryClient = new QueryClient();
 
@@ -16,6 +20,10 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/learn-more" element={<LearnMore />} />
+          <Route path="/expansion-journey" element={<ExpansionJourney />} />
+          <Route path="/how-it-works" element={<HowItWorks />} />
+          <Route path="/download" element={<CTA />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

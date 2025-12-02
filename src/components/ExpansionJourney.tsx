@@ -3,12 +3,13 @@ import { motion } from "framer-motion";
 import { MapPin, Building2, Globe, ArrowRight, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PitchDeckForm } from "@/components/PitchDeckForm";
+import { AnimatedBackground } from "@/components/AnimatedBackground";
 
 const phases = [
   {
     phase: 1,
     title: "PoC in Douala",
-    description: "Validate tech and service model.",
+    description: "City survey, product-market fit and service model validation.",
     icon: MapPin,
     status: "active",
   },
@@ -46,7 +47,7 @@ const PhaseCard = ({ phase, index }: { phase: typeof phases[0]; index: number })
     >
       {isActive && (
         <span className="absolute -top-3 left-6 px-3 py-1 bg-primary text-primary-foreground text-xs font-semibold rounded-full">
-          Current
+          Projected - Jan. 2026
         </span>
       )}
       
@@ -67,11 +68,11 @@ export const ExpansionJourney = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   return (
-    <section className="py-24 bg-background relative overflow-hidden">
+    <section 
+      id="expansion-journey"
+      className="py-24 bg-background relative overflow-hidden">
       {/* Background decoration */}
-      <div className="absolute inset-0 opacity-30">
-        <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
-      </div>
+      <AnimatedBackground />
 
       <div className="container mx-auto px-4 relative z-10">
         <motion.div
@@ -109,7 +110,15 @@ export const ExpansionJourney = () => {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
-          <Button size="lg" className="group">
+          <Button
+            size="lg"
+            className="group"
+            onClick={() => {
+              const email = "kkonarski42@gmail.com";
+              const subject = "Invest in Konnectik";
+              const body = "Hello, \n\nI'm interested in investing in Konnectik's expansion journey.\n\nBest regards,";
+              window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            }}>
             Invest in our Expansion Journey
             <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
           </Button>

@@ -30,7 +30,9 @@ const steps = [
 
 export const HowItWorks = () => {
 	return (
-		<section className="py-12 md:py-16 relative overflow-hidden">
+		<section
+			id="how-it-works"
+			className="py-12 md:py-16 relative overflow-hidden">
 			{/* Background Pattern */}
 			<div className="absolute inset-0 opacity-5">
 				<div

@@ -138,7 +138,7 @@ export const LearnMore: React.FC = () => {
   const [activeTab, setActiveTab] = useState('why');
 
   return (
-    <section id="about" className="py-20 md:py-32 bg-background">
+    <section id="learn-more" className="py-20 md:py-32 bg-background">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 40 }}

@@ -1,14 +1,81 @@
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "./ui/button";
 import { ArrowRight, Download } from "lucide-react";
+import mockup1 from "@/assets/konnectik_mockup2.png";
+import mockup2 from "@/assets/konnectik_mockup3.png";
 
 export const CTA = () => {
+  // --- added state and countdown logic ---
+  const [showModal, setShowModal] = useState(false);
+  const [timeLeft, setTimeLeft] = useState({
+    total: 0,
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+
+  const releaseTime = new Date("2026-01-15T00:00:00Z").getTime();
+
+  useEffect(() => {
+    let timer: number | undefined;
+    if (showModal) {
+      const update = () => {
+        const now = Date.now();
+        const total = Math.max(0, releaseTime - now);
+        const seconds = Math.floor((total / 1000) % 60);
+        const minutes = Math.floor((total / 1000 / 60) % 60);
+        const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
+        const days = Math.floor(total / (1000 * 60 * 60 * 24));
+        setTimeLeft({ total, days, hours, minutes, seconds });
+        if (total <= 0 && timer) {
+          window.clearInterval(timer);
+        }
+      };
+      update();
+      timer = window.setInterval(update, 1000);
+    }
+    return () => {
+      if (timer) window.clearInterval(timer);
+    };
+  }, [showModal]);
+
   return (
-    <section className="py-24 relative overflow-hidden">
-      {/* Animated Background */}
-      <div className="absolute inset-0 gradient-dark">
-        <div className="absolute inset-0 opacity-20">
-          {[...Array(30)].map((_, i) => (
+    <section id="download"
+      className="py-24 relative overflow-hidden">
+      {/* Animated Background + repeating decorative image (with vertical mirror) */}
+      <div className="absolute inset-0 gradient-dark opacity-90">
+        {/* Decorative repeating image layer (normal + vertically mirrored) */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+          <div className="absolute top-0 left-0 flex w-full justify-between items-start h-full opacity-[0.06] px-10">
+
+            {[...Array(1)].map((_, i) => (
+              <React.Fragment key={i}>
+                {/* Original */}
+                <img
+                  src={mockup1}
+                  alt=""
+                  className="h-full object-cover"
+                  style = {{ width: "425px"}}
+                />
+
+                {/* Mirrored */}
+                <img
+                  src={mockup2}
+                  alt=""
+                  className="h-full object-cover"
+                  style={{ width: "425px", transform: "scaleX(-1)"}}
+                />
+              </React.Fragment>
+            ))}
+
+          </div>
+        </div>
+
+        {/* animated dots (kept on top of decorative layers) */}
+        <div className="absolute inset-0 opacity-30">
+          {[...Array(200)].map((_, i) => (
             <motion.div
               key={i}
               className="absolute w-1 h-1 bg-primary rounded-full"
@@ -43,31 +110,81 @@ export const CTA = () => {
             <h2 className="text-4xl md:text-6xl font-black mb-6 text-foreground">
               Ready to Get <span className="text-primary">Connected?</span>
             </h2>
-            
+
             <p className="text-xl md:text-2xl text-muted-foreground mb-10 max-w-2xl mx-auto">
-              Join thousands who've switched to affordable, reliable Wi-Fi. 
+              Join thousands who've switched to affordable, reliable Wi-Fi.
               Download the app and start saving today.
             </p>
 
             {/* Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-              <Button 
-                size="lg" 
+            {/* Single Download Button (opens modal) */}
+            <div className="flex justify-center mb-12">
+              <Button
+                size="lg"
                 className="text-lg px-10 py-7 gradient-primary shadow-glow hover:shadow-strong transition-smooth group"
+                onClick={() => setShowModal(true)}
+                aria-haspopup="dialog"
               >
                 <Download className="w-5 h-5 mr-2 group-hover:animate-bounce" />
                 Download App
                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-smooth" />
               </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="text-lg px-10 py-7 border-2 border-primary/50 text-foreground hover:bg-primary/5 hover:border-primary transition-smooth"
-              >
-                Contact Sales
-              </Button>
             </div>
 
+            {/* Modal: Unavailability + Countdown */}
+            {showModal && (
+              <div
+                className="fixed inset-0 z-50 flex items-center justify-center p-4"
+                role="dialog"
+                aria-modal="true"
+                aria-label="App unavailable modal"
+              >
+                <div
+                  className="absolute inset-0 bg-black/50"
+                  onClick={() => setShowModal(false)}
+                />
+                <div className="relative bg-card rounded-xl p-6 max-w-md w-full z-10 border border-primary/30">
+                  <h3 className="text-2xl font-bold mb-2">App Unavailable</h3>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    The app is not yet available. Countdown to release:
+                  </p>
+                  <div className="flex justify-center gap-4 text-center mb-4">
+                    <div>
+                      <div className="text-2xl font-semibold">{timeLeft.days}</div>
+                      <div className="text-xs text-muted-foreground">Days</div>
+                    </div>
+                    <div>
+                      <div className="text-2xl font-semibold">
+                        {String(timeLeft.hours).padStart(2, "0")}
+                      </div>
+                      <div className="text-xs text-muted-foreground">Hours</div>
+                    </div>
+                    <div>
+                      <div className="text-2xl font-semibold">
+                        {String(timeLeft.minutes).padStart(2, "0")}
+                      </div>
+                      <div className="text-xs text-muted-foreground">Minutes</div>
+                    </div>
+                    <div>
+                      <div className="text-2xl font-semibold">
+                        {String(timeLeft.seconds).padStart(2, "0")}
+                      </div>
+                      <div className="text-xs text-muted-foreground">Seconds</div>
+                    </div>
+                  </div>
+                  <div className="flex justify-end gap-2">
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={() => setShowModal(false)}
+                      className="text-sm"
+                    >
+                      Close
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            )}
             {/* Trust Indicators */}
             <div className="flex flex-wrap justify-center gap-8 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
@@ -76,7 +193,7 @@ export const CTA = () => {
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-primary rounded-full"></div>
-                <span>Free trial available</span>
+                <span>Free reward on sign up</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-primary rounded-full"></div>

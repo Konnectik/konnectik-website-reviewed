@@ -135,7 +135,7 @@ export const PitchDeckForm = ({ isOpen, onClose }: PitchDeckFormProps) => {
                   Click below to view Konnectik's pitch deck.
                 </p>
                 <Button asChild size="lg" className="w-full">
-                  <a href="/pitch-deck.pdf" target="_blank" rel="noopener noreferrer">
+                  <a href="https://bit.ly/4oFv1rE" target="_blank" rel="noopener noreferrer">
                     <ExternalLink className="mr-2 w-5 h-5" />
                     Open Pitch Deck
                   </a>
