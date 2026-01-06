@@ -202,7 +202,7 @@ export const CTA = () => {
             {/* Demo Modal: Figma Prototype */}
             {showDemoModal && (
               <div
-                className="fixed inset-0 z-50 flex items-center justify-center p-4"
+                className="fixed inset-0 z-50 flex items-center justify-center p-0 sm:p-4"
                 role="dialog"
                 aria-modal="true"
                 aria-label="App demo modal"
@@ -211,9 +211,9 @@ export const CTA = () => {
                   className="absolute inset-0 bg-black/70"
                   onClick={() => setShowDemoModal(false)}
                 />
-                <div className="relative bg-card rounded-xl p-4 max-w-4xl w-full z-10 border border-primary/30">
-                  <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-xl font-bold">App Demo</h3>
+                <div className="relative bg-card sm:rounded-xl p-3 sm:p-4 w-full h-full sm:h-auto sm:max-w-4xl z-10 sm:border border-primary/30 flex flex-col">
+                  <div className="flex justify-between items-center mb-3 sm:mb-4">
+                    <h3 className="text-lg sm:text-xl font-bold">App Demo</h3>
                     <Button
                       size="sm"
                       variant="ghost"
@@ -223,9 +223,9 @@ export const CTA = () => {
                       Close
                     </Button>
                   </div>
-                  <div className="aspect-video w-full">
+                  <div className="flex-1 sm:aspect-video w-full min-h-0">
                     <iframe
-                      className="w-full h-full rounded-lg border border-border"
+                      className="w-full h-full sm:rounded-lg border border-border"
                       src="https://embed.figma.com/proto/RU16jcquksyerqVy3xQ8JM/Konnectik-Flutterflow?page-id=0%3A1&node-id=55-123&viewport=-206%2C400%2C0.38&scaling=scale-down&content-scaling=fixed&starting-point-node-id=11%3A7&embed-host=share"
                       allowFullScreen
                     />
