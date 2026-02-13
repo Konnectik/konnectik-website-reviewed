@@ -105,7 +105,7 @@ export const HowItWorks = () => {
 					whileInView={{ opacity: 1, y: 0 }}
 					viewport={{ once: true }}
 					transition={{ duration: 0.6 }}
-					className="mt-12 md:mt-16 max-w-3xl mx-auto"
+					className="mt-12 md:mt-16 max-w-4xl mx-auto"
 				>
 					<div className="bg-card border-2 rounded-2xl p-6 md:p-8 shadow-strong">
 						<h3 className="text-2xl font-black text-center mb-6">
@@ -131,7 +131,7 @@ export const HowItWorks = () => {
 
 							{/* Konnectik */}
 							<div className="text-center relative">
-								<div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground px-3 py-0.5 rounded-full text-xs font-bold">
+								<div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground px-3 py-0.5 rounded-full text-xs font-bold animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite] shadow-[0_0_12px_hsl(var(--primary)/0.5)]">
 									BEST VALUE
 								</div>
 								<div className="text-primary font-semibold mb-2 text-sm pt-4">
