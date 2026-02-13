@@ -1,4 +1,4 @@
-import { Wifi, Mail, MapPin, Phone } from "lucide-react";
+import { Wifi, Mail, MapPin, Phone, MessageCircle } from "lucide-react";
 
 export const Footer = () => {
   return (
@@ -18,10 +18,30 @@ export const Footer = () => {
             <div className="flex gap-4">
               <a 
                 href="https://www.linkedin.com/company/konnectik-cm" 
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 bg-primary/10 hover:bg-primary/20 rounded-full flex items-center justify-center transition-smooth"
                 aria-label="LinkedIn"
               >
                 <span className="text-primary font-bold">in</span>
+              </a>
+              <a 
+                href="https://www.tiktok.com/@karolckonarski" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-primary/10 hover:bg-primary/20 rounded-full flex items-center justify-center transition-smooth"
+                aria-label="TikTok"
+              >
+                <span className="text-primary font-bold text-sm">TT</span>
+              </a>
+              <a 
+                href="https://chat.whatsapp.com/ERaHGmXxuy76VKvF2SbXI9" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-primary/10 hover:bg-primary/20 rounded-full flex items-center justify-center transition-smooth"
+                aria-label="WhatsApp Community"
+              >
+                <MessageCircle className="w-5 h-5 text-primary" />
               </a>
             </div>
           </div>
@@ -44,7 +64,12 @@ export const Footer = () => {
                 <a href="#how-it-works" className="text-muted-foreground hover:text-primary transition-smooth">
                   How It Works
                 </a>
-              </li> 
+              </li>
+              <li>
+                <a href="#audience" className="text-muted-foreground hover:text-primary transition-smooth">
+                  Who Is It For
+                </a>
+              </li>
               <li>
                 <a href="#download" className="text-muted-foreground hover:text-primary transition-smooth">
                   Download
