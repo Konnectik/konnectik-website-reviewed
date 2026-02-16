@@ -74,11 +74,11 @@ export const BlogSection = () => {
               <a href={post.link} target="_blank" rel="noopener noreferrer" className="block h-full">
                 <div className="bg-card border rounded-2xl overflow-hidden shadow-subtle hover:shadow-strong transition-smooth h-full flex flex-col">
                   {/* Image */}
-                  <div className="relative h-48 overflow-hidden">
+                  <div className="relative h-48 overflow-hidden bg-muted flex items-center justify-center">
                     <img
                       src={post.image}
                       alt={post.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-smooth"
+                      className="w-full h-full object-contain group-hover:scale-105 transition-smooth"
                       loading="lazy"
                     />
                     <div className="absolute top-3 left-3">
